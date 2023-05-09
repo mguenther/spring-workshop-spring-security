@@ -53,8 +53,6 @@ All of these services expose their port through the host system and are thus ava
 * Click [here](http://localhost:9091/oauth2/jwks) to see the generated JSON Web Keys on the authorization server.
 * Click [here](http://localhost:9090/eureka) for opening the dashboard of the Eureka Server
 
-![OpenAPI UI for Command Service](static/openapi-ui-command-service.png)
-
 The API specification is minimalistic. Nevertheless, play around with the OpenAPI UI a bit to get a feel for what we'll be working on as part of the workshop.
 
 If you have any questions or run into problems, please don't hesitate to ask for help.
