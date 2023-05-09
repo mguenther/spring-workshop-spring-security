@@ -59,7 +59,7 @@ If you have any questions or run into problems, please don't hesitate to ask for
 
 ### Docker CLI Hints
 
-*Starting containers using `docker-compose` - use `--build` if you rebuilt the application with changes * 
+*Starting containers using `docker-compose` - use `--build` if you rebuilt the application with changes*
 
 ```bash
 $ docker-compose up --build
