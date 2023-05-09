@@ -1,0 +1,22 @@
+
+### Fetch user information for a user (will return HTTP-200 with empty body)
+
+GET http://localhost:9095/whoami
+
+
+### Fetch user information for authenticated user (will yield HTTP-403 when not authenticated)
+
+GET http://localhost:9095/whoami/authenticated
+Authorization:
+
+### Fetch a single employee - will give the profile appropriate to your authentication / authorization level
+
+GET http://localhost:9095/employee/1
+Authorization:
+
+
+### Fetch all employees - will give the profile appropriate to your authentication / authorization level
+
+GET http://localhost:9095/employee
+# Authorization: Bearer
+# Authorization: Basic

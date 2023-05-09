@@ -1,0 +1,13 @@
+server:
+  port: 9090
+logging:
+  level:
+    root: INFO
+
+client:
+  resourceUrl: ${RESOURCE_SERVER_URL:http://localhost:9095}
+
+spring:
+  thymeleaf:
+    prefix: classpath:/views/
+    suffix: .html

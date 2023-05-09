@@ -1,0 +1,22 @@
+version: '2.2'
+services:
+  authorization:
+    image: security/authorization-server
+    container_name: authorization-server
+    build: ../authorization-server/
+    ports:
+      - "127.0.0.1:9091:9091"
+  resource:
+    image: security/resource-server
+    container_name: resource-server
+    build: ../resource-server/
+    ports:
+      - "127.0.0.1:9095:9095"
+  client:
+    image: security/client-application
+    container_name: client-application
+    build: ../client-application/
+    ports:
+      - "127.0.0.1:9090:9090"
+    environment:
+      RESOURCE_SERVER_URL: http://resource-server:9095
