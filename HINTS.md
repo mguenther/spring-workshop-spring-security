@@ -60,7 +60,7 @@ To encode your credentials the correct way you can use a utility page like https
 
 Regarding the changes in the UI: We will see more/less data, depending on our highest authority. The Statistics will only be visible with the `MANAGEMENT` authority.
 
-## Task #3 Secure the Client Application via Google OIDC
+## Task #3: Secure the Client Application via Google OIDC
 
 2. The whole configuration snippet is quite easy - we have to register a client and configure the client-id / secret and ideally the redirect-uri (see 3.3). Because our application listens on / the default will work as well, but it looks ugly.
 ```yaml
@@ -79,7 +79,7 @@ spring:
 ```
 3. See Hint 3.2
 
-## Task #4 Allow authentication/authorization via JWT at the resource server
+## Task #4: Allow authentication/authorization via JWT at the resource server
 
 1.  We need a `SecurityChainFilter` that intercepts the request, reads the `Authorization` header and extracts the information of the JWT to transform them into a valid `SecurityContext`.
 2. The necessary Filter might look something like the following snippet. This is a very primitive and stupid implementation that doesn't check anything except that it's a readable JWT. So feel free to improve on this!
