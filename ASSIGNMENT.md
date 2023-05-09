@@ -41,6 +41,7 @@ client-secret: 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
 
 ## Task #4 Allow authentication/authorization via JWT at the resource server
 
+IT-Sec called - they are not thrilled about our Basic Auth integration in the resource server. But the integration of the oauth2 client in the Client Application gave them an idea: let's allow services to authenticate themselves with an JWT. We have an authorization-server standing around anyways ... so why not just use it. Caveat: Of course several systems already integrated with the resource server via Basic Auth. So both authentication mechanisms **must** work in parallel!
 
 1. Take a look at the `token.http` file in the `authorization-server` module. Execute the request, inspect the token at http://jwt.io - how can we leverage that?
 2. Configure the Resource Server to accept JWTs. All necessary dependencies are already in place. Use a custom `OncePerRequestFilter` to intercept the request, search for a `Bearer` token in the `Authorization` header and transform token with its scopes into a `Principal`. You don't need to verify the signature of the JWTs or check for expiration to complete this task. But if you want to ... be our guest!
