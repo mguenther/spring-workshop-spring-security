@@ -49,7 +49,7 @@ http.authorizeHttpRequests(authz ->
 ## Task #2: Configure the Client Application to use credentials
 
 2. We use a `RestTemplate` Bean, that is configured in the `WebClientConfiguration` class - so for any centralized client changes we can customize the Bean.
-3. We have several ways to make our `RestTemplate` use the appropriate credentials. We could hardcore the `Authorization` Header - which obviously is not a production ready approach, but enough to pass the task:
+3. We have several ways to make our `RestTemplate` use the appropriate credentials. We could hard-code the `Authorization` Header - which obviously is not a production ready approach, but enough to pass the task:
 ```java
     return new RestTemplateBuilder()
             .uriTemplateHandler(new DefaultUriBuilderFactory(config.getResourceUrl()))
