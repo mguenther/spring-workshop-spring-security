@@ -168,7 +168,7 @@ public class OAuth2User {
 }
 ```
 
-Finally we need to register the filter with the `SecurityFilterChain`.
+Finally, we need to register the filter with the `SecurityFilterChain`.
 ```yaml
 (...)
 .httpBasic()
