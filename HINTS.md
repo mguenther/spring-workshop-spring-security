@@ -62,22 +62,20 @@ Regarding the changes in the UI: We will see more/less data, depending on our hi
 
 ## Task #3: Secure the Client Application via Google OIDC
 
-2. The whole configuration snippet is quite easy - we have to register a client and configure the client-id / secret and ideally the redirect-uri (see 3.3). Because our application listens on / the default will work as well, but it looks ugly.
-```yaml
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            redirect-uri: http://localhost:9090/login/oauth2/code/google
-            client-id: 735658187058-2uo7evmpainngptpc46i77j2g93t2jt5.apps.googleusercontent.com
-            client-secret: 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
-            scope:
-              - email
-              - profile
+3. We need to enforce authentication while still permitting access to the login-form as well as the necessary `/oauth2/` callbacks. So we need a `SecurityFilterChain` configuration that looks like this:
+
+```java
+http.authorizeHttpRequests((auth) -> auth
+  .requestMatchers("/oauth2/**", "/login").permitAll()
+  .anyRequest().authenticated()
+).oauth2Login(oauth2 ->
+  oauth2.loginPage("/login")
+    .userInfoEndpoint()
+    .userService(new DefaultOAuth2UserService())
+);
 ```
-3. See Hint 3.2
+
+4. We have no custom redirect after a successful login. The default redirect works just fine but has a `/source-url?continue` pattern, which is just ugly. One intended way to change that is to register a success-handler on the oauth2 process and do the redirect ourselves.
 
 ## Task #4: Allow authentication/authorization via JWT at the resource server
 

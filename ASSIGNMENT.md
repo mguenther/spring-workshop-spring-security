@@ -1,6 +1,6 @@
 # Lab Assignment
 
-Your task is to implement the security constraints necessary for our service landscape. The goal is that all critical resources on the resource-server are protected.
+Your task is to implement the security constraints necessary for our service landscape. The goal is to protect all critical resources on the resource-server.
 
 Take a look at http://localhost:9090/ to see what the Client Application is showing - it is our goal to see all available data after these tasks!
 
@@ -23,7 +23,7 @@ With the resource server secured we will no longer be able to show any data in t
 
 ## Task #3: Secure the Client Application via Google OIDC
 
-The Client Application should now again be able to show the employee data - ideally all data should be visible ... except the logged-in user.  We now want to ensure that only users with a Google Account can access the Client Application for ... reasons. 
+The Client Application should now again be able to show the employee data - ideally all data should be visible ... except the logged-in user.  We now want to ensure that only users with a Google or GitHub Account can access the Client Application. We already provided a login entry point in the application listening on `/login`
 
 1. We need an additional dependency in the Client to use the OIDC of Google, the coordinates of the dependency are
 
@@ -34,13 +34,47 @@ The Client Application should now again be able to show the employee data - idea
 </dependency> 
 ```
 
-2. With the dependency added the client needs to be configured. Try to figure out how to do this. A good starting point is the documentation at https://spring.io/guides/tutorials/spring-boot-oauth2/ - the following snippet contains all the data you should need to complete your configuration
+2. With the dependency added the clients need to be configured. The following snippet shows how to register the OAuth 2 clients:
+
 ```yaml
-client-id: 735658187058-2uo7evmpainngptpc46i77j2g93t2jt5.apps.googleusercontent.com
-client-secret: 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
+spring:
+  thymeleaf:
+    prefix: classpath:/views/
+    suffix: .html
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: http://localhost:9090/login/oauth2/code/google
+            client-id: 735658187058-2uo7evmpainngptpc46i77j2g93t2jt5.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+          github:
+            redirect-uri: http://localhost:9090/login/oauth2/code/github
+            client-id: 64a091a8edc54ea11a0d
+            client-secret: a37d47562d152b400bfe7cfd0bf9a742a2c4cea7
+            scope:
+              - user:email
+              - read:user
+```
+3. Access to the application still works without authentication - which is no wonder, because we never told Spring to actually secure the endpoints. Time to change that! We want to lock down **everything** - except the Login-URL as well as everything in/under the path `/oauth2/`.
+
+Take the snippet below, add it to the appropriate `@Bean` and fill in the missing details.
+
+```java
+http.authorizeHttpRequests((auth) -> auth
+  // TODO
+).oauth2Login(oauth2 ->
+  oauth2.loginPage("/login")
+    .userInfoEndpoint()
+    .userService(new DefaultOAuth2UserService())
+);
 ```
 
-3. If your client is up and running, and you're able to log in via Google: does anything seem odd about the redirect-uri? How can we change that?
+4. If your client is up and running, and you're able to log in via Google/GitHub: does anything seem odd about the redirect-uri? Any ideas what is happening or how to change that?
 
 ## Task #4: Allow authentication/authorization via JWT at the resource server
 
