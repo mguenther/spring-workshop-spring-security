@@ -51,7 +51,7 @@ All of these services expose their port through the host system and are thus ava
 
 * Click [here](http://localhost:9095/swagger-ui.html) for opening the OpenAPI UI for the resource service.
 * Click [here](http://localhost:9091/oauth2/jwks) to see the generated JSON Web Keys on the authorization server.
-* Click [here](http://localhost:9090/eureka) for opening the dashboard of the Eureka Server
+* Click [here](http://localhost:9090/) to open the client application
 
 The API specification is minimalistic. Nevertheless, play around with the OpenAPI UI a bit to get a feel for what we'll be working on as part of the workshop.
 
